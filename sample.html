@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Page</title>
+    <style>
+        /* Save this in your MenuPage.css file */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('Restaurant Logo.png'); /* Replace 'background.jpg' with your image path */
+    background-size: auto; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-color: #1C053A;
+    color: white; /* Adjust text color for contrast */
+}
+
+/* Optional: To make the header text pop */
+
+/* Highlighted Header */
+header {
+    background-color: #F5F5F5; /* Background color for header */
+    color: #1C053A; /* Text color */
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 1px;
+    margin: 0px auto; /* Center the header with auto margins */
+    border-radius: 30px; /* Rounded corners */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Shadow for text */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for header box */
+    width: 90%; /* Adjust width */
+    max-width: 1200px; /* Limit the max width for large screens */
+}
+
+/* Container for buttons */
+.buttons-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    position: relative; /* Ensures the container is placed relative to the background image */
+    width: 100%; /* Full width */
+    height: 70vh; /* Full height of the viewport */
+    align-items: center; /* Vertically center the buttons */
+    padding: 0 70px; /* Adds spacing on the sides */
+    box-sizing: border-box; /* Includes padding in dimensions */
+}
+
+/* Left and Right Button Sections */
+.left-buttons,
+.right-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Spacing between buttons */
+    align-items: flex-start; /* Align buttons to the left or right edge */
+}
+
+.right-buttons {
+    align-items: flex-end; /* Align buttons to the right */
+}
+
+/* Button Styles */
+.buttons-container button {
+    background: #F5F5F5; /* Transparent background */
+    color: #1C053A; /* Text color */
+    border: 1px solid #fff; /* Add border */
+    padding: 20px 20px; /* Padding inside buttons */
+    font-size: 1em; /* Font size */
+    cursor: pointer; /* Pointer on hover */
+    border-radius: 10px; /* Rounded corners */
+    transition: background 0.3s, color 0.3s; /* Smooth hover transition */
+    white-space: nowrap; /* Prevent text wrapping */
+    text-align: center; /* Center align text */
+}
+
+.buttons-container button:hover {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background on hover */
+}
+        /* New container for menu details that stays fixed on the page */
+.menu-details-container {
+    position: fixed;  /* Keeps it in a fixed position */
+    top: 150px;  /* Adjust based on where you want it */
+    left: 50%;  /* Centers it horizontally */
+    transform: translateX(-50%);  /* Moves it back by half of its width */
+    width: 400px;  /* Set a fixed width for the details box */
+    max-height: 500px;  /* Limit height to enable scrolling */
+    background-color: rgba(255, 255, 255, 2);  /* Semi-transparent background */
+    color: #1C053A;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for a nice effect */
+    padding: 20px;
+    display: none;  /* Hidden by default */
+    overflow-y: auto;  /* Enables scrolling if the content is too long */
+}
+
+/* Styling for each menu item in the detail container */
+.menu-details-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-details-container li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.menu-details-container li span {
+    font-size: 1.1em;
+}
+
+.menu-details-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+/* Footer */
+footer {
+    background-color: #1C053A; /* Background color for header */
+    color: white; /* Text color */
+    text-align: center;
+    font-weight: bold;
+    padding : 1px;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to NAWABI KNIGHTS</h1>
+        <h4>your Taste, our Pride !</h4>
+    </header>
+
+<div class="buttons-container">
+    <div class="left-buttons">
+        <button onclick="showCategory('veg-soups')">Soups - Veg</button>
+        <button onclick="showCategory('non-veg-soups')">Soups - Non Veg</button>
+        <button onclick="showCategory('veg-starters')">Starters - Veg</button>
+        <button onclick="showCategory('non-veg-starters')">Starters - Non Veg</button>
+        <button onclick="showCategory('veg-fried-rice')">Fried Rice - Veg</button>
+        <button onclick="showCategory('non-veg-fried-rice')">Fried Rice - Non Veg</button>
+        <button onclick="showCategory('north-indian')">North Indian</button>
+    </div>
+    <div class="right-buttons">
+        <button onclick="showCategory('veg-noodles')">Noodles - Veg</button>
+        <button onclick="showCategory('non-veg-noodles')">Noodles - Non Veg</button>
+        <button onclick="showCategory('veg-main-course')">Main Course - Veg</button>
+        <button onclick="showCategory('non-veg-main-course')">Main Course - Non Veg</button>
+        <button onclick="showCategory('veg-biryani')">Biryani - Veg</button>
+        <button onclick="showCategory('non-veg-biryani')">Biryani - Non Veg</button>
+        <button onclick="showCategory('beverages')">Cold Beverages</button>
+    </div>
+</div>
+
+<div class="menu-details-container" id="menu-details">
+    <!-- Menu details will appear here dynamically -->
+</div>
+
+<div class="menu-category" id="veg-soups" style="display:none;">
+    <h2>Soups - Veg</h2>
+    <ul>
+        <li><span>Veg Manchow Soup</span><span>&#8377;99</span></li>
+        <li><span>Veg Hot & Sour Soup</span><span>&#8377; 109</span></li>
+        <li><span>Veg Clear Soup</span><span>&#8377; 89</span></li>
+        <li><span>Lemon Coriander Soup</span><span>&#8377; 99</span></li>
+        <li><span>Mushroom Soup</span><span>&#8377; 99</span></li>
+        <li><span>Veg Thukpa</span><span>&#8377; 99</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="non-veg-soups" style="display:none;">
+    <h2>Soups - Non Veg</h2>
+    <ul>
+        <li><span>Chicken Manchow Soup</span><span>&#8377; 119</span></li>
+        <li><span>Chicken Hot & Sour Soup</span><span>&#8377; 119</span></li>
+        <li><span>Chicken Clear Soup</span><span>&#8377; 109</span></li>
+        <li><span>Chicken Thukpa</span><span>&#8377; 109</span></li>
+        <li><span>Chicken Lemon Coriander</span><span>&#8377; 109</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="veg-starters" style="display:none;">
+    <h2>Starters - Veg</h2>
+    <ul>
+        <li><span>Gobi Manchurian</span><span>&#8377; 139</span></li>
+        <li><span>Gobi 65</span><span>&#8377; 149</span></li>
+        <li><span>Chilli Paneer</span><span>&#8377; 199</span></li>
+        <li><span>Paneer Manchurian</span><span>&#8377; 199</span></li>
+        <li><span>Paneer 65</span><span>&#8377; 209</span></li>
+        <li><span>Pepper and Salt Paneer</span><span>&#8377; 199</span></li>
+        <li><span>Pepper Garlic Paneer</span><span>&#8377; 209</span></li>
+        <li><span>Chilli Mushroom</span><span>&#8377; 169</span></li>
+        <li><span>Mushroom Manchurian</span><span>&#8377; 169</span></li>
+        <li><span>Mushroom 65</span><span>&#8377; 179</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="non-veg-starters" style="display:none;">
+    <h2>Starters - Non Veg</h2>
+    <ul>
+        <li><span>Chicken Manchurian</span><span>&#8377; 199</span></li>
+        <li><span>Chilli Chicken</span><span>&#8377; 209</span></li>
+        <li><span>Chicken 65</span><span>&#8377; 209</span></li>
+        <li><span>Pepper Garlic Chicken</span><span>&#8377; 209</span></li>
+        <li><span>Chicken Lollipop</span><span>&#8377; 199</span></li>
+        <li><span>Drums of Heaven</span><span>&#8377; 209</span></li>
+        <li><span>Butter Garlic Chicken</span><span>&#8377; 209</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="veg-fried-rice" style="display:none;">
+    <h2>Fried Rice - Veg</h2>
+    <ul>
+        <li><span>Veg Fried Rice</span><span>&#8377; 119</span></li>
+        <li><span>Schezwan Fried Rice</span><span>&#8377; 129</span></li>
+        <li><span>Chilli Garlic Fried Rice</span><span>&#8377; 129</span></li>
+        <li><span>Burnt Garlic Fried Rice</span><span>&#8377; 129</span></li>
+        <li><span>Butter Garlic Fried Rice</span><span>&#8377; 139</span></li>
+        <li><span>Paneer Fried Rice</span><span>&#8377; 139</span></li>
+        <li><span>Mushroom Fried Rice</span><span>&#8377; 129</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="non-veg-fried-rice" style="display:none;">
+    <h2>Fried Rice - Non Veg</h2>
+    <ul>
+        <li><span>Egg Fried Rice</span><span>&#8377; 129</span></li>
+        <li><span>Egg Schezwan Fried Rice</span><span>&#8377; 139</span></li>
+        <li><span>Chicken Fried Rice</span><span>&#8377; 149</span></li>
+        <li><span>Chicken Schezwan Fried Rice</span><span>&#8377; 159</span></li>
+        <li><span>Chilli Garlic Chicken Fried Rice</span><span>&#8377; 149</span></li>
+        <li><span>Burnt Garlic Chicken Fried Rice</span><span>&#8377; 149</span></li>
+        <li><span>Butter Garlic Chicken Fried Rice</span><span>&#8377; 159</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="veg-noodles" style="display:none;">
+    <h2>Noodles - Veg</h2>
+    <ul>
+        <li><span>Veg Noodles</span><span>&#8377; 119</span></li>
+        <li><span>Schezwan Noodles</span><span>&#8377; 129</span></li>
+        <li><span>Chilli Garlic Noodles</span><span>&#8377; 129</span></li>
+        <li><span>Burnt Garlic Noodles</span><span>&#8377; 129</span></li>
+        <li><span>Butter Garlic Noodles</span><span>&#8377; 139</span></li>
+        <li><span>Mushroom Noodles</span><span>&#8377; 139</span></li>
+        <li><span>Paneer Noodles</span><span>&#8377; 149</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="non-veg-noodles" style="display:none;">
+    <h2>Fried Rice - Non Veg</h2>
+    <ul>
+        <li><span>Egg Noodles</span><span>&#8377; 129</span></li>
+        <li><span>Egg Schezwan Noodles</span><span>&#8377; 139</span></li>
+        <li><span>Chicken Noodles</span><span>&#8377; 149</span></li>
+        <li><span>Chicken Schezwan Noodles</span><span>&#8377; 159</span></li>
+        <li><span>Chilli Garlic Chicken Noodles</span><span>&#8377; 149</span></li>
+        <li><span>Burnt Garlic Chicken Noodles</span><span>&#8377; 149</span></li>
+        <li><span>Butter Garlic Chicken Noodles</span><span>&#8377; 159</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="veg-main-course" style="display:none;">
+    <h2>Main Course - Veg</h2>
+    <ul>
+        <li><span>Dal Fry</span><span>&#8377; 129</span></li>
+        <li><span>Dal Tadaka</span><span>&#8377; 129</span></li>
+        <li><span>Paneer Masala</span><span>&#8377; 189</span></li>
+        <li><span>Paneer Butter Masala</span><span>&#8377; 209</span></li>
+        <li><span>Kadai Paneer</span><span>&#8377; 199</span></li>
+        <li><span>Paneer Kolhapuri</span><span>&#8377; 209</span></li>
+        <li><span>Mushroom Masala</span><span>&#8377; 189</span></li>
+        <li><span>Kadali Mushroom</span><span>&#8377; 189</span></li>
+        <li><span>Mushroom Kolhapuri</span><span>&#8377; 199</span></li>
+        <li><span>Mix Veg Masala</span><span>&#8377; 209</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="non-veg-main-course" style="display:none;">
+    <h2>Main Course - Veg</h2>
+    <ul>
+        <li><span>Egg Bhurji</span><span>&#8377; 99</span></li>
+        <li><span>Egg Masala</span><span>&#8377; 189</span></li>
+        <li><span>Chicken Masala</span><span>&#8377; 209</span></li>
+        <li><span>Butter Chicken Masala</span><span>&#8377; 229</span></li>
+        <li><span>Kadai Chicken</span><span>&#8377; 229</span></li>
+        <li><span>Chicken Fry</span><span>&#8377; 209</span></li>
+        <li><span>Mutton Masala</span><span>&#8377; 329</span></li>
+        <li><span>Mutton Fry</span><span>&#8377; 329</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="veg-biryani" style="display:none;">
+    <h2>Biryani - Veg</h2>
+    <ul>
+        <li><span>Mushroom Biryani</span><span>&#8377; 179</span></li>
+        <li><span>Paneer Biryani</span><span>&#8377; 179</span></li>
+        <li><span>Kaju Biryani</span><span>&#8377; 189</span></li>
+        <li><span>Kaju Paneer Biryani</span><span>&#8377; 199</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="non-veg-biryani" style="display:none;">
+    <h2>Biryani - Non Veg</h2>
+    <ul>
+        <li><span>Zaffrani Chicken Dum Biryani</span><span>&#8377; 139</span></li>
+        <li><span>Zaffrani Chicken Dum Biryani Handi</span><span>&#8377; 259</span></li>
+        <li><span>Zaffrani Chicken Fry Piece Biryani</span><span>&#8377; 159</span></li>
+        <li><span>Zaffrani Chicken Fry Piece Biryani Handi</span><span>&#8377; 299</span></li>
+        <li><span>Drums of Heaven Biryani</span><span>&#8377; 199</span></li>
+        <li><span>Drums of Heaven Biryani Handi</span><span>&#8377; 379</span></li>
+        <li><span>Chicken-65 Biryani</span><span>&#8377; 199</span></li>
+        <li><span>Chicken-65 Biryani Handi</span><span>&#8377; 379</span></li>
+        <li><span>Mutton Fry Piece Biryani</span><span>&#8377; 259</span></li>
+        <li><span>Mutton Fry Piece Biryani Handi</span><span>&#8377; 449</span></li>
+        <li><span>Zaffrani Chicken Dum Biryani Family</span><span>&#8377; 539</span></li>
+        <li><span>Zaffrani Chicken Fry Piece Biryani Family</span><span>&#8377; 619</span></li>
+        <li><span>Mutton Fry Piece Biryani Family</span><span>&#8377; 899</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="north-indian" style="display:none;">
+    <h2>North Indian</h2>
+    <ul>
+        <li><span>Jeera Rice + Dal</span><span>&#8377; 139</span></li>
+        <li><span>2 Plain Paratha + Dal</span><span>&#8377; 99</span></li>
+        <li><span>3 Pulka + Dal</span><span>&#8377; 99</span></li>
+        <li><span>2 Pulka + Egg Bhurji</span><span>&#8377; 99</span></li>
+        <li><span>Jeera Rice</span><span>&#8377; 79</span></li>
+        <li><span>1 pc. Paratha</span><span>&#8377; 19</span></li>
+        <li><span>1 pc. Pulka</span><span>&#8377; 15</span></li>
+    </ul>
+</div>
+
+<div class="menu-category" id="beverages" style="display:none;">
+    <h2>Cold Beverages</h2>
+    <ul>
+        <li><span>Thumsup</span><span>&#8377; MRP</span></li>
+        <li><span>Coca Cola</span><span>&#8377; MRP</span></li>
+        <li><span>Sprite</span><span>&#8377; MRP</span></li>
+        <li><span>Water Bottle</span><span>&#8377; MRP</span></li>
+    </ul>
+</div>
+
+    <!-- Contact Section -->
+    <footer>
+        <h3>Contact Us &phone; 8639708950 &nbsp; &nbsp; &nbsp; &nbsp; Instagram @nawabi_knights</h3>
+        <h3>NAWABI KNIGHTS :  We bring you the finest dining experience, blending rich heritage with modern culinary delights. Taste the royalty in every bite!</h3>
+    </footer>
+<script>
+    function showCategory(categoryId) {
+    // Show the selected category
+    const selectedCategory = document.getElementById(categoryId);
+    if (selectedCategory) {
+        // Get the menu items and display them in the floating container
+        const items = selectedCategory.querySelector('ul').innerHTML;
+        const title = selectedCategory.querySelector('h2').innerHTML;
+
+        // Update the floating menu details container
+        const menuDetails = document.getElementById('menu-details');
+        menuDetails.innerHTML = `<h2>${title}</h2><ul>${items}</ul>`;
+
+        // Show the details container
+        menuDetails.style.display = 'block';
+        }
+    }
+</script>
+</body>
+</html>
